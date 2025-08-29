@@ -106,12 +106,7 @@ export class CloudSync {
     downloadOptionTitle: string | null,
     label?: string
   ) {
-    const hasActiveSubscription = await db
-      .get<string, User>(levelKeys.user, { valueEncoding: "json" })
-      .then((user) => {
-        const expiresAt = new Date(user?.subscription?.expiresAt ?? 0);
-        return expiresAt > new Date();
-      });
+    const hasActiveSubscription = true;
 
     if (!hasActiveSubscription) {
       throw new SubscriptionRequiredError();

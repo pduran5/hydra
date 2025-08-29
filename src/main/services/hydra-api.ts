@@ -48,8 +48,7 @@ export class HydraApi {
   }
 
   private static hasActiveSubscription() {
-    const expiresAt = new Date(this.userAuth.subscription?.expiresAt ?? 0);
-    return expiresAt > new Date();
+    return hasActiveSubscription;
   }
 
   static async handleExternalAuth(uri: string) {
