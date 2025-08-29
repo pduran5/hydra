@@ -48,7 +48,7 @@ export class HydraApi {
   }
 
   private static hasActiveSubscription() {
-    return hasActiveSubscription;
+    return true;
   }
 
   static async handleExternalAuth(uri: string) {
