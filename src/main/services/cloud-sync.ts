@@ -108,11 +108,12 @@ export class CloudSync {
     downloadOptionTitle: string | null,
     label?: string
   ) {
-    const hasActiveSubscription = true;
-
-    if (!hasActiveSubscription) {
-      throw new SubscriptionRequiredError();
-    }
+    const hasActiveSubscription = await db
+      .get<string, User>(levelKeys.user, { valueEncoding: "json" })
+      .then((user) => {
+        const expiresAt = new Date(user?.subscription?.expiresAt ?? 0);
+        return expiresAt > new Date();
+      });
 
     const game = await gamesSublevel.get(levelKeys.game(shop, objectId));
 
