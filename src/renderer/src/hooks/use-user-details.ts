@@ -125,8 +125,11 @@ export function useUserDetails() {
 
   const unblockUser = (userId: string) => window.electron.unblockUser(userId);
 
-  const hasActiveSubscription = true;
-
+  const hasActiveSubscription = useMemo(() => {
+    const expiresAt = new Date(userDetails?.subscription?.expiresAt ?? 0);
+    return expiresAt > new Date();
+  }, [userDetails]);
+  
   return {
     userDetails,
     profileBackground,
