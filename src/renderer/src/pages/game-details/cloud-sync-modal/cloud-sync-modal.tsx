@@ -202,12 +202,7 @@ export function CloudSyncModal({ visible, onClose }: CloudSyncModalProps) {
             onClick={() => uploadSaveGame(lastDownloadedOption?.title ?? null)}
             tooltip={isMissingWinePrefix ? t("missing_wine_prefix") : undefined}
             tooltipPlace="left"
-            disabled={
-              disableActions ||
-              !backupPreview?.overall.totalGames ||
-              artifacts.length >= backupsPerGameLimit ||
-              isMissingWinePrefix
-            }
+            disabled="false"
           >
             {uploadingBackup ? (
               <SyncIcon className="cloud-sync-modal__sync-icon" />
