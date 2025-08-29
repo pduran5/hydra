@@ -49,6 +49,42 @@ export class Ludusavi {
     }
   }
 
+  public static async cloudGame(
+    _shop: GameShop,
+    objectId: string,
+    backupPath?: string | null,
+    winePrefix?: string | null,
+    preview?: boolean
+  ): Promise<LudusaviBackup> {
+    return new Promise((resolve, reject) => {
+      const args = [
+        "--config",
+        this.configPath,
+        "cloud",
+        "upload",
+        objectId,
+        "--api",
+        "--force",
+      ];
+
+      if (preview) args.push("--preview");
+      if (backupPath) args.push("--path", backupPath);
+      if (winePrefix) args.push("--wine-prefix", winePrefix);
+
+      cp.execFile(
+        this.binaryPath,
+        args,
+        (err: cp.ExecFileException | null, stdout: string) => {
+          if (err) {
+            return reject(err);
+          }
+
+          return resolve(JSON.parse(stdout) as LudusaviBackup);
+        }
+      );
+    });
+  }
+
   public static async backupGame(
     _shop: GameShop,
     objectId: string,
@@ -65,6 +101,7 @@ export class Ludusavi {
         "--api",
         "--force",
       ];
+      args.push("--format", "zip");
 
       if (preview) args.push("--preview");
       if (backupPath) args.push("--path", backupPath);

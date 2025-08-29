@@ -88,6 +88,7 @@ export class CloudSync {
 
     const tarLocation = path.join(backupsPath, `${crypto.randomUUID()}.tar`);
 
+    /*    
     await tar.create(
       {
         gzip: false,
@@ -96,6 +97,7 @@ export class CloudSync {
       },
       ["."]
     );
+    */
 
     return tarLocation;
   }

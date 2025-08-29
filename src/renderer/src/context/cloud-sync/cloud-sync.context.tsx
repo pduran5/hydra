@@ -121,8 +121,9 @@ export function CloudSyncContextProvider({
 
   const uploadSaveGame = useCallback(
     async (downloadOptionTitle: string | null) => {
-      setUploadingBackup(true);
+      setUploadingBackup(false);
       window.electron.uploadSaveGame(objectId, shop, downloadOptionTitle);
+      showSuccessToast(t("backup_uploaded"));
     },
     [objectId, shop]
   );
